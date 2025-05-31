@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Виконуємо білд Spring Boot-додатку
-RUN mvn clean package -DskipTests
+RUN mvn clean package -Dmaven.test.skip=true
 
 # Використання легкого OpenJDK для фінального контейнера
 FROM eclipse-temurin:17-jdk-jammy
