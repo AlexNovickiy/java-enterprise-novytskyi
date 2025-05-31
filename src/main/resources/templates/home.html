@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Order Management</title>
+</head>
+<body>
+<h1>Hello, <span th:text="${username}"></span>!</h1>
+<p>Welcome to the Order Management Page.</p>
+
+<!-- Display all orders -->
+<h2>All Orders</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Customer Name</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Items</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.customerName}"></td>
+        <td th:text="${#dates.format(order.date, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${order.status}"></td>
+        <td>
+            <ul>
+                <li th:each="item : ${order.orderItems}" th:text="'Product: ' + item.product.name + ', Quantity: ' + item.quantity"></li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Form to create new order -->
+<h2>Add New Order</h2>
+<form th:action="@{/orders}" method="post">
+    <label for="customerName">Customer Name:</label>
+    <input type="text" id="customerName" name="customerName" required /><br>
+    <label for="date">Date:</label>
+    <input type="datetime-local" id="date" name="date" required /><br>
+    <label for="status">Status:</label>
+    <input type="text" id="status" name="status" required /><br>
+    <button type="submit">Add Order</button>
+</form>
+
+<!-- Display all products -->
+<h2>All Products</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.category}"></td>
+        <td th:text="${product.price}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Form to add item to order -->
+<h2>Add Item to Order</h2>
+<form th:action="@{/order-items}" method="post">
+    <label for="orderId">Order ID:</label>
+    <input type="number" id="orderId" name="orderId" required /><br>
+    <label for="productId">Product ID:</label>
+    <input type="number" id="productId" name="productId" required /><br>
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" required /><br>
+    <button type="submit">Add Item</button>
+</form>
+
+<!-- Form to update order status -->
+<h2>Update Order Status</h2>
+<form th:action="@{/orders/{id}/status}" method="post">
+    <label for="orderIdUpdate">Order ID:</label>
+    <input type="number" id="orderIdUpdate" name="orderId" required><br>
+    <label for="statusUpdate">Status:</label>
+    <input type="text" id="statusUpdate" name="status" required><br>
+    <button type="submit">Update Status</button>
+</form>
+</body>
+</html>
