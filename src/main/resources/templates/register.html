@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Register</title>
 </head>
@@ -12,7 +12,7 @@
     </div>
     <div>
         <label for="password">Password:</label>
-        <input type="password" id="password" th:field="*{password}" required />
+        <input type="password" id="password" th:field="*{password}" required autocomplete="new-password" />
     </div>
     <button type="submit">Register</button>
 </form>
